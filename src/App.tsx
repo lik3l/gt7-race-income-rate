@@ -1,8 +1,11 @@
 import React from 'react';
+import {ReactComponent as Penis} from "./penis.svg";
 
 function App() {
   return (
-    <div>Init</div>
+    <div>
+      <Penis />
+    </div>
   );
 }
 
