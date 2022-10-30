@@ -1,2 +1,4 @@
-# gt7-race-income-rate
-GT7 Income rate table
+# GT7 Race Income Rate Table
+_____________________________
+
+GT7 web page with all race income data with possibility to add, filter, sort data on races
