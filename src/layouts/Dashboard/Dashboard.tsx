@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  flex-grow: 1;
 `
 
 export const Dashboard: React.FC = () => {
