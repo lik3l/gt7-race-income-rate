@@ -36,3 +36,7 @@ jobs:
       - name: Deploy
         if: success()
         run: aws s3 sync ./build s3://gt7-race-income-rate
+
+      - name: Invalidate cache
+        if: success()
+        run: aws cloudfront create-invalidation --distribution-id E10ZFSYW0APDT3 --paths "/*"
