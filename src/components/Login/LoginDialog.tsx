@@ -1,5 +1,8 @@
+import LoadingButton from '@mui/lab/LoadingButton'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
+import { auth } from '../../firebase'
 import { IDialogProps } from '../../types'
 
 interface IForm {
@@ -10,6 +13,7 @@ const blankForm: IForm = { email: '', password: '' }
 
 export const LoginDialog: React.FC<IDialogProps> = ({ open, onClose }) => {
   const [form, setForm] = useState<IForm>(blankForm)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -22,8 +26,16 @@ export const LoginDialog: React.FC<IDialogProps> = ({ open, onClose }) => {
     setForm({ ...form, [name]: value })
   }
 
-  const handleLogin = (): void => {
-    onClose()
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  const handleLogin: React.FormEventHandler = async () => {
+    const { email, password } = form
+    try {
+      setLoading(true)
+      await signInWithEmailAndPassword(auth, email, password)
+      onClose()
+    } finally {
+      setLoading(false)
+    }
   }
 
   return <Dialog open={open} onClose={onClose}>
@@ -51,7 +63,11 @@ export const LoginDialog: React.FC<IDialogProps> = ({ open, onClose }) => {
       </DialogContent>
       <DialogActions>
         <Button variant='outlined' onClick={onClose}>Close</Button>
-        <Button type='submit' variant='contained' onClick={handleLogin}>Login</Button>
+        <LoadingButton
+          loading={loading}
+          type='submit'
+          variant='contained'
+          onClick={handleLogin}>Login</LoadingButton>
       </DialogActions>
     </form>
   </Dialog>
