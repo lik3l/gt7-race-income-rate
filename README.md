@@ -1,3 +1,4 @@
+[![Deploy](https://github.com/lik3l/gt7-race-income-rate/actions/workflows/deploy.yml/badge.svg)](https://github.com/lik3l/gt7-race-income-rate/actions/workflows/deploy.yml)
 [![Test & Lint app](https://github.com/lik3l/gt7-race-income-rate/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/lik3l/gt7-race-income-rate/actions/workflows/main.yml)
 # GT7 Race Income Rate Table
 _____________________________
