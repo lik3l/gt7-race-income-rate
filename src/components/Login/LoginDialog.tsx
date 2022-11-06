@@ -1,9 +1,8 @@
 import LoadingButton from '@mui/lab/LoadingButton'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { auth } from '../../firebase'
 import { IDialogProps } from '../../types'
+import { useAuth } from '../../context/FirebaseAuthContext'
 
 interface IForm {
   email: string
@@ -13,7 +12,7 @@ const blankForm: IForm = { email: '', password: '' }
 
 export const LoginDialog: React.FC<IDialogProps> = ({ open, onClose }) => {
   const [form, setForm] = useState<IForm>(blankForm)
-  const [loading, setLoading] = useState<boolean>(false)
+  const { login, loading } = useAuth()
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -29,13 +28,9 @@ export const LoginDialog: React.FC<IDialogProps> = ({ open, onClose }) => {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const handleLogin: React.FormEventHandler = async () => {
     const { email, password } = form
-    try {
-      setLoading(true)
-      await signInWithEmailAndPassword(auth, email, password)
-      onClose()
-    } finally {
-      setLoading(false)
-    }
+
+    await login({ email, password })
+    onClose()
   }
 
   return <Dialog open={open} onClose={onClose}>
