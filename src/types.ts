@@ -1,5 +1,5 @@
-export type TCallback = () => void
-export type TArgCallback<T> = (arg: T) => void
+export type TCallback<R=void> = () => R
+export type TArgCallback<T, R=void> = (arg: T) => R
 
 export interface IDialogProps {
   open: boolean
